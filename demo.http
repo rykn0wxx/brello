@@ -1,0 +1,21 @@
+# GET http://localhost:3000
+
+###
+# POST http://localhost:3000/users
+# content-type: application/json
+
+# {
+# 	"user":{
+# 		"email": "me@me.com",
+# 		"username": "me",
+# 		"admin": true,
+# 		"password": "me",
+# 		"password_confirmation": "me"
+# 	}
+# }
+
+###
+GET http://localhost:3000/users/me@me.com
+Content-Type: application/json
+Accept: application/json
+Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTUzNDEyODQsInN1YiI6MX0.RKaDFLlaia8KToPmzi5lhHoRU3cAry-bkDIAjcfW3QA

@@ -1,0 +1,13 @@
+### SERVER SIDE ###
+brello-server/.bundle
+brello-server/db/*.sqlite3
+brello-server/db/*.sqlite3-journal
+brello-server/log/*
+brello-server/tmp/*
+!brello-server/log/.keep
+!brello-server/tmp/.keep
+brello-server/.byebug_history
+brello-server/public/system
+
+### CLIENT SIDE ###
+brello-client/node_modules
