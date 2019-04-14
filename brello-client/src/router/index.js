@@ -45,6 +45,11 @@ const customRoutes = [
         path: '/components',
         name: 'Components',
         component: (resolve) => import('@/views/Components.vue').then(resolve)
+      },
+      {
+        path: '/boards',
+        name: 'Boards',
+        component: (resolve) => import('@/views/Boards.vue').then(resolve)
       }
     ]
   },

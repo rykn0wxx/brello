@@ -1,5 +1,5 @@
 <template>
-  <div :class="calcDepth" class="md-whiteframes">
+  <div class="md-whiteframes">
     <slot />
   </div>
 </template>
@@ -7,15 +7,7 @@
 <script>
 export default {
   name: 'MdWhiteframes',
-  replace: true,
-  props: [
-    'depth'
-  ],
-  computed: {
-    calcDepth: function () {
-      return `md-whiteframe-${this.depth || 4}dp`
-    }
-  }
+  inheritAttrs: false
 }
 </script>
 
@@ -26,6 +18,7 @@ export default {
 .md-whiteframes {
   padding: 8px;
   margin: 8px;
+  box-shadow: $whiteframe-shadow-4dp;
 }
 .md-whiteframe-1dp, .md-whiteframe-z1 {
   box-shadow: $whiteframe-shadow-1dp;

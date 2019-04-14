@@ -15,7 +15,13 @@
 # }
 
 ###
-GET http://localhost:3000/users/me@me.com
+# GET http://localhost:3000/users/me@me.com
+# Content-Type: application/json
+# Accept: application/json
+# Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTUzNDEyODQsInN1YiI6MX0.RKaDFLlaia8KToPmzi5lhHoRU3cAry-bkDIAjcfW3QA
+
+###
+GET http://localhost:3000/boards
 Content-Type: application/json
 Accept: application/json
-Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTUzNDEyODQsInN1YiI6MX0.RKaDFLlaia8KToPmzi5lhHoRU3cAry-bkDIAjcfW3QA
+Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTUzNTQwNDQsInN1YiI6MX0.JgRTn1bBST6S5w-vXPAWa1HsDWYtO9api5tJ-kCOTCk

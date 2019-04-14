@@ -45,10 +45,10 @@
               <span class="md-list-item-text">Authentication</span>
             </router-link>
           </md-list-item>
-          <md-list-item class="app-drawer__item base" :class="activeRoute">
-            <router-link to="/base" class="app-drawer__link">
+          <md-list-item class="app-drawer__item boards" :class="activeRoute">
+            <router-link to="/boards" class="app-drawer__link">
               <md-icon>menu</md-icon>
-              <span class="md-list-item-text">Base</span>
+              <span class="md-list-item-text">Boards</span>
             </router-link>
           </md-list-item>
           <div class="item-divider"></div>
@@ -157,7 +157,7 @@ export default {
     }
   }
 }
-.home.home-active, .about.about-active, .components.components-active {
+.home.home-active, .about.about-active, .components.components-active, .boards.boards-active {
   background-color: rgba(0,0,0,0.1);
   box-shadow: 0 1px 3px rgba(0,0,0,0.1) inset;
 }

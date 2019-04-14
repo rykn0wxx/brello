@@ -6,7 +6,7 @@
 // Lib imports
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import createPersistedState from 'vuex-persistedstate'
+import createPersistedState from 'vuex-persistedstate'
 
 // Store functionality
 import actions from './actions'
@@ -19,9 +19,9 @@ Vue.use(Vuex)
 
 // Create a new store
 const store = new Vuex.Store({
-  // plugins: [
-  //   createPersistedState()
-  // ],
+  plugins: [
+    createPersistedState()
+  ],
   strict: true,
   actions,
   getters,
