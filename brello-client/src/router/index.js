@@ -48,8 +48,13 @@ const customRoutes = [
       },
       {
         path: '/boards',
-        name: 'Boards',
-        component: (resolve) => import('@/views/Boards.vue').then(resolve)
+        component: (resolve) => import('@/views/boards/Boards.vue').then(resolve),
+        name: 'BoardsBoards'
+      },
+      {
+        path: '/boards/:id',
+        component: (resolve) => import('@/views/boards/Board.vue').then(resolve),
+        name: 'BoardsBoard'
       }
     ]
   },

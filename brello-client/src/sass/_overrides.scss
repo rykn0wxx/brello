@@ -6,16 +6,17 @@
       background-color: #353846;
       color: #b2b9bf;
     }
-    .md-card {
-      color: #b2b9bf;
-      background-color: #2f323e;
-      margin-top: 8px;
-      margin-bottom: 8px;
-    }
     .md-field > .md-icon::after {
       background-color: rgba(0,0,0,0);
     }
   }
+}
+
+.md-card.md-theme-default {
+  color: #b2b9bf;
+  background-color: #2f323e;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .md-drawer {

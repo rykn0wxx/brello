@@ -20,8 +20,19 @@
 # Accept: application/json
 # Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTUzNDEyODQsInN1YiI6MX0.RKaDFLlaia8KToPmzi5lhHoRU3cAry-bkDIAjcfW3QA
 
+# ###
+# GET http://localhost:3000/boards
+# Content-Type: application/json
+# Accept: application/json
+# Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTU1NjE5MzUsInN1YiI6MX0.7TRIgcLs6vP98NKprb_giGRHrREto1or7I3s6beA0G8
+
 ###
-GET http://localhost:3000/boards
-Content-Type: application/json
-Accept: application/json
-Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTUzNTQwNDQsInN1YiI6MX0.JgRTn1bBST6S5w-vXPAWa1HsDWYtO9api5tJ-kCOTCk
+# POST http://localhost:3000/user_token
+# Content-Type: application/json
+
+# {
+#   "auth": {
+#     "email": "me@me.com",
+#     "password": "me"
+#   }
+# }

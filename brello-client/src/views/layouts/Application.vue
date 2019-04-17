@@ -1,10 +1,10 @@
 <template>
   <div class="app layout-row">
-    <md-app md-waterfall md-mode="fixed" class="app-md">
+    <md-app class="app-md" md-mode="fixed">
       <md-app-toolbar class="md-primary app-toolbar md-whiteframe-glow-z1">
         <div class="md-toolbar-row">
           <div class="md-toolbar-section-start">
-            <md-button class="md-icon-button" @click="showSidebar = !showSidebar">
+            <md-button class="md-icon-button" @click="toggleMenu" v-if="!menuVisible">
               <md-icon>menu</md-icon>
             </md-button>
             <span class="md-title">My Title</span>
@@ -12,14 +12,23 @@
           <div class="md-toolbar-section-end">
             <md-button class="md-icon-button" @click="logoutUser" v-if="userLogin">
               <md-icon>exit_to_app</md-icon>
+              <md-tooltip md-direction="top">Logout</md-tooltip>
             </md-button>
           </div>
         </div>
       </md-app-toolbar>
-      <md-app-drawer md-permanent="full" class="app-drawer" v-if="showSidebar">
+
+      <md-app-drawer :md-active.sync="menuVisible" md-persistent="full" class="app-drawer">
         <md-toolbar class="md-transparent" md-elevation="0">
-          Navigation
+          <span>Navigation</span>
+
+          <div class="md-toolbar-section-end">
+            <md-button class="md-icon-button md-dense" @click="toggleMenu">
+              <md-icon>keyboard_arrow_left</md-icon>
+            </md-button>
+          </div>
         </md-toolbar>
+
         <md-list class="app-drawer-list">
           <md-list-item class="app-drawer__item home" :class="activeRoute">
             <router-link to="/home" class="app-drawer__link">
@@ -45,7 +54,7 @@
               <span class="md-list-item-text">Authentication</span>
             </router-link>
           </md-list-item>
-          <md-list-item class="app-drawer__item boards" :class="activeRoute">
+          <md-list-item class="app-drawer__item boardsboards" :class="activeRoute">
             <router-link to="/boards" class="app-drawer__link">
               <md-icon>menu</md-icon>
               <span class="md-list-item-text">Boards</span>
@@ -54,6 +63,7 @@
           <div class="item-divider"></div>
         </md-list>
       </md-app-drawer>
+
       <md-app-content class="app-content layout-column flex">
         <md-views />
         <core-scroll-fab scroll-elem-selector=".md-app-scroller" />
@@ -70,7 +80,8 @@ export default {
   data () {
     return {
       activeRoute: '',
-      showSidebar: true
+      showSidebar: true,
+      menuVisible: false
     }
   },
   computed: {
@@ -83,6 +94,9 @@ export default {
     }
   },
   methods: {
+    toggleMenu () {
+      this.menuVisible = !this.menuVisible
+    },
     logoutUser () {
       this.$store.dispatch('user/logoutUser')
       this.$router.push('/login')
@@ -157,7 +171,7 @@ export default {
     }
   }
 }
-.home.home-active, .about.about-active, .components.components-active, .boards.boards-active {
+.home.home-active, .about.about-active, .components.components-active, .boardsboards.boardsboards-active {
   background-color: rgba(0,0,0,0.1);
   box-shadow: 0 1px 3px rgba(0,0,0,0.1) inset;
 }
