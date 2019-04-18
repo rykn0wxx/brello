@@ -10,6 +10,9 @@ import { sync } from 'vuex-router-sync'
 // Plugins
 import '@/plugins'
 
+// Tailwind Styles
+import '@/assets/tailwind-styles.css'
+
 import '@/sass/styles.scss'
 
 // Application imports
