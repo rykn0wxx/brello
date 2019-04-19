@@ -80,6 +80,11 @@ const customRoutes = [
         component: (resolve) => import('@/views/auth/Register.vue').then(resolve)
       }
     ]
+  },
+  {
+    path: '/welcome',
+    component: (resolve) => import('@/views/auth/Welcome.vue').then(resolve),
+    name: 'Welcome'
   }
 ]
 

@@ -40,7 +40,7 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, minLength } from 'vuelidate/lib/validators'
-import Services from '@/services'
+// import Services from '@/services'
 // import AuthenticationService from '@/services/AuthenticationService'
 // import Api from '@/services/Api'
 
@@ -77,28 +77,14 @@ export default {
         }
       }
     },
-    async getUser () {
+    async loginUser () {
       try {
-        const userObj = await Services.Api.secured().get(`users/${this.user.login}`)
-        this.$store.dispatch('user/setUser', userObj.data)
+        await this.$store.dispatch('user/logInUser', this.user)
         this.sending = false
         this.$router.push('/')
       } catch (error) {
-        this.$store.dispatch('setError', error.response.data)
-      }
-    },
-    async loginUser () {
-      try {
-        const userToken = await Services.AuthenticationService.login({
-          auth: {
-            email: this.user.login,
-            password: this.user.password
-          }
-        })
-        this.$store.dispatch('user/setToken', userToken.data.jwt)
-        this.getUser()
-      } catch (error) {
-        this.$store.dispatch('setError', error.response.data)
+        this.$store.dispatch('setError', 'Error logging in your credentials, please try again')
+        this.sending = false
       }
     },
     validateUser () {

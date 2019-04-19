@@ -48,10 +48,10 @@
               <span class="md-list-item-text">Components</span>
             </router-link>
           </md-list-item>
-          <md-list-item class="app-drawer__item authentication" :class="activeRoute">
-            <router-link to="/authentication" class="app-drawer__link">
+          <md-list-item class="app-drawer__item welcome" :class="activeRoute">
+            <router-link to="/welcome" class="app-drawer__link">
               <md-icon>lock</md-icon>
-              <span class="md-list-item-text">Authentication</span>
+              <span class="md-list-item-text">Welcome</span>
             </router-link>
           </md-list-item>
           <md-list-item class="app-drawer__item boardsboards" :class="activeRoute">
