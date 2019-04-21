@@ -1,5 +1,5 @@
 class BoardsController < ApplicationController
-  before_action :set_board, only: [:show, :update, :destroy]
+  before_action :set_board, only: [:update, :destroy]
   before_action :authenticate_user
   skip_before_action :verify_authenticity_token
 
@@ -11,7 +11,13 @@ class BoardsController < ApplicationController
 
   # GET /boards/1
   def show
-    render json: @board
+    @board = current_user.boards.includes(:lists).where(:id => params[:id])
+    # @lists = List.includes(:cards).where(:board_id => params[:id])
+    # @output = {
+    #   board: @board.to_json(:include => :lists, :except => [:created_at, :updated_at]),
+    #   lists: @lists.to_json(:include => :cards, :except => [:created_at, :updated_at])
+    # }
+    render json: @board.to_json(:include => :lists, :except => [:created_at, :updated_at])
   end
 
   # POST /boards

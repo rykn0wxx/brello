@@ -4,6 +4,9 @@ export default {
   setBoards (state, payload) {
     state.boards = payload
   },
+  setBoard (state, payload) {
+    state.currentBoard = payload
+  },
   newBoard (state, payload) {
     state.boards.push(payload)
   },

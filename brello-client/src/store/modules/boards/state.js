@@ -2,5 +2,5 @@
 
 export default {
   boards: null,
-  activeBoard: null
+  currentBoard: null
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="board px-2 relative text-gray-900">
-    <div class="flex flex-wrap -mx-2">
-      <div v-for="(list, index) in lists" :key="index" class="list-wrapper h-full w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 mb-4 bg-gray-500 mx-2">
+    <draggable :list="allLists" class="flex flex-wrap -mx-2" @change="log">
+      <div v-for="(list, index) in allLists" :key="index" class="list-wrapper h-full w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 mb-4 bg-gray-500 mx-2">
         <div class="list-content flex flex-col h-full relative whitespace-normal">
           <div class="list-header relative pr-12">
             <h2 class="list-header-name md-body-2">{{ list.name }}</h2>
@@ -19,27 +19,32 @@
           </a>
         </div>
       </div>
-    </div>
+    </draggable>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import draggable from 'vuedraggable'
 
 export default {
   name: 'BoardsBoard',
+  components: { draggable },
   computed: {
     ...mapGetters({
-      lists: 'lists/allLists'
+      allLists: 'lists/allLists'
     })
   },
   created () {
-    this.getAllLists({ board_id: this.$route.params.id })
+    this.getAllLists(this.$route.params.id)
   },
   methods: {
     ...mapActions({
       getAllLists: 'lists/getAllLists'
-    })
+    }),
+    log (evt) {
+      console.log(evt)
+    }
   }
 }
 </script>

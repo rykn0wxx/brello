@@ -38,7 +38,7 @@
 # }
 
 ###
-GET http://localhost:3000/boards/1/lists
+GET http://localhost:3000/boards/1
 Content-Type: application/json
 Accept: application/json
-Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTU5MjA1MzksInN1YiI6MX0.Ce-hAuwRoQaxRiptlLnzTL7TTO2TGKZjUdUOwCsMxzw
+Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTU5NDgzMDksInN1YiI6MX0.iHwcgSPWMozQFIyquQnx7XmGj0X4kNKVJ2-tc7xwq-k
