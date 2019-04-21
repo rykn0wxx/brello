@@ -1,6 +1,6 @@
 <template>
   <div class="board px-2 relative text-gray-900">
-    <draggable :list="allLists" class="flex flex-wrap -mx-2" @change="log">
+    <draggable :list="allLists" class="flex flex-wrap -mx-2" @change="log" v-if="isToShow">
       <div v-for="(list, index) in allLists" :key="index" class="list-wrapper h-full w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 mb-4 bg-gray-500 mx-2">
         <div class="list-content flex flex-col h-full relative whitespace-normal">
           <div class="list-header relative pr-12">
@@ -20,6 +20,7 @@
         </div>
       </div>
     </draggable>
+    <trello-board-tile :boardLists="allLists" />
   </div>
 </template>
 
@@ -30,6 +31,11 @@ import draggable from 'vuedraggable'
 export default {
   name: 'BoardsBoard',
   components: { draggable },
+  data () {
+    return {
+      isToShow: false
+    }
+  },
   computed: {
     ...mapGetters({
       allLists: 'lists/allLists'
@@ -49,12 +55,13 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .board {
   // font-size: 1.4rem;
   .list {
     &-wrapper {
       width: 272px;
+      cursor: move;
     }
     &-content {
       background-color: #dfe3e6;

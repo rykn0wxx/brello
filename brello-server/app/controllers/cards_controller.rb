@@ -3,6 +3,13 @@ class CardsController < ApplicationController
   before_action :authenticate_user
   skip_before_action :verify_authenticity_token
 
+  # PATCH /boards/:board_id/lists/:list_id/cards/:id/move
+  def move
+    @card = Card.find(params[:id])
+    @card.insert_at(card_params[:position].to_i)
+    render json: @card.to_json(:except => [:created_at, :updated_at])
+  end
+
   # GET /cards
   def index
     @cards = Card.all

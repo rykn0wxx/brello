@@ -3,6 +3,14 @@ class BoardsController < ApplicationController
   before_action :authenticate_user
   skip_before_action :verify_authenticity_token
 
+  # PATCH /boards/:id/move
+  def move
+    @board = current_user.boards.where(:id => params[:id])
+    @board.insert_at(board_params[:position].to_i)
+    @boards = current_user.boards.order(:position => :asc)
+    render json: @boards.to_json(:except => [:created_at, :updated_at])
+  end
+
   # GET /boards
   def index
     @boards = current_user.boards.order(:position => :asc)
@@ -12,11 +20,6 @@ class BoardsController < ApplicationController
   # GET /boards/1
   def show
     @board = current_user.boards.includes(:lists).where(:id => params[:id])
-    # @lists = List.includes(:cards).where(:board_id => params[:id])
-    # @output = {
-    #   board: @board.to_json(:include => :lists, :except => [:created_at, :updated_at]),
-    #   lists: @lists.to_json(:include => :cards, :except => [:created_at, :updated_at])
-    # }
     render json: @board.to_json(:include => :lists, :except => [:created_at, :updated_at])
   end
 

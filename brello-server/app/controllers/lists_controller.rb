@@ -3,10 +3,17 @@ class ListsController < ApplicationController
   before_action :authenticate_user
   skip_before_action :verify_authenticity_token
 
+  # PATCH /boards/:board_id/lists/:id/move
+  def move
+    @list = List.find(params[:id])
+    @list.insert_at(list_params[:position].to_i)
+    @lists = List.where(:board_id => params[:board_id]).order(:position => :asc)
+    render json: @lists.to_json(:include => :cards, :except => [:created_at, :updated_at])
+  end
+
   # GET /lists
   def index
     @lists = List.where(:board_id => params[:board_id]).order(:position => :asc)
-
     render json: @lists.to_json(:include => :cards, :except => [:created_at, :updated_at])
   end
 
