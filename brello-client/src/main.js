@@ -13,6 +13,7 @@ import '@/plugins'
 // Tailwind Styles
 import '@/assets/tailwind-styles.css'
 
+// Custom CSS
 import '@/sass/styles.scss'
 
 // Application imports

@@ -81,7 +81,7 @@ export default {
     return {
       activeRoute: '',
       showSidebar: true,
-      menuVisible: false
+      menuVisible: true
     }
   },
   computed: {
@@ -99,6 +99,7 @@ export default {
     },
     logoutUser () {
       this.$store.dispatch('user/logoutUser')
+      this.$store.dispatch('boards/clearBoards')
       this.$router.push('/login')
     },
     getActiveRoute (val) {
@@ -121,6 +122,9 @@ export default {
     &, .app-drawer-list {
       background-color: #2f323e;
     }
+  }
+  &-content.md-app-content {
+    padding: 0;
   }
 }
 .app-drawer {

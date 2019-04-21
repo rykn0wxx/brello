@@ -1,5 +1,5 @@
 <template>
-  <div class="md-views layout-padding flex-noshrink">
+  <div class="md-views flex-noshrink" :class="{'layout-padding': withPadding}">
     <transition name="fade-right">
       <router-view />
     </transition>
@@ -8,7 +8,13 @@
 
 <script>
 export default {
-  name: 'MdViews'
+  name: 'MdViews',
+  props: {
+    withPadding: {
+      type: Boolean,
+      default: true
+    }
+  }
 }
 </script>
 

@@ -24,7 +24,7 @@
 # GET http://localhost:3000/boards
 # Content-Type: application/json
 # Accept: application/json
-# Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTU1NjE5MzUsInN1YiI6MX0.7TRIgcLs6vP98NKprb_giGRHrREto1or7I3s6beA0G8
+# Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTU5MjA1MzksInN1YiI6MX0.Ce-hAuwRoQaxRiptlLnzTL7TTO2TGKZjUdUOwCsMxzw
 
 ###
 # POST http://localhost:3000/user_token
@@ -36,3 +36,9 @@
 #     "password": "me"
 #   }
 # }
+
+###
+GET http://localhost:3000/boards/1/lists
+Content-Type: application/json
+Accept: application/json
+Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTU5MjA1MzksInN1YiI6MX0.Ce-hAuwRoQaxRiptlLnzTL7TTO2TGKZjUdUOwCsMxzw

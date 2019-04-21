@@ -186,7 +186,7 @@ input {
 // Bi-directional support
 html, body {
   &[dir=rtl], &[dir=ltr] {
-     unicode-bidi: embed
+    unicode-bidi: embed
   }
 }
 

@@ -4,47 +4,55 @@
 
       <!-- Each sign-up and sign-in will have container form -->
       <div class="container-form sign-up">
-        <form class="app-form flex flex-col items-center justify-center h-full text-center" @submit.prevent="doNothing">
+        <form @submit.prevent="validateUser('sign-up')" novalidate ref="form" class="app-form flex flex-col items-center justify-center h-full text-center">
           <h3 class="md-title">Create Account</h3>
           <div class="container-social">
             <div class="social inline-flex justify-center items-center rounded-full border-solid border"><md-icon>dashboard</md-icon></div>
             <div class="social inline-flex justify-center items-center rounded-full border-solid border"><md-icon>home</md-icon></div>
             <div class="social inline-flex justify-center items-center rounded-full border-solid border"><md-icon>shield</md-icon></div>
           </div>
-          <span class="md-caption">or use your email for registration</span>
-          <md-field md-inline class="app-form__field">
-            <label class="app-form__label">Name</label>
-            <md-input v-model="name" class="app-form__control"></md-input>
+          <span class="md-caption">Create your account and enjoy</span>
+          <md-field md-inline class="app-form__field" :class="getValidationClass('register', 'email')">
+            <label class="app-form__label" for="register.email">Email</label>
+            <md-input class="app-form__control" v-model="register.email" id="register.email" name="email" type="email" autocomplete="off" autofocus="true" required />
           </md-field>
-          <md-field md-inline class="app-form__field">
-            <label class="app-form__label">Email</label>
-            <md-input v-model="email" class="app-form__control"></md-input>
+          <md-field md-inline class="app-form__field" :class="getValidationClass('register', 'username')">
+            <label class="app-form__label" for="register.username">Username</label>
+            <md-input class="app-form__control" v-model="register.username" id="register.username" name="username" type="text" autocomplete="off" autofocus="true" required />
           </md-field>
-          <md-field md-inline class="app-form__field">
-            <label class="app-form__label">Password</label>
-            <md-input v-model="password" class="app-form__control"></md-input>
+          <md-field md-inline class="app-form__field" :class="getValidationClass('register', 'password')">
+            <label class="app-form__label" for="register.password">Password</label>
+            <md-input class="app-form__control" v-model="register.password" id="register.password" name="password" type="password" autocomplete="off" autofocus="true" required />
           </md-field>
-          <md-button type="submit" class="md-raised mt-8 app-form__btn">Sign Up</md-button>
+          <md-field md-inline class="app-form__field" :class="getValidationClass('register', 'password_confirmation')">
+            <label class="app-form__label" for="register.password_confirmation">Password Confirmation</label>
+            <md-input class="app-form__control" v-model="register.password_confirmation" id="register.password_confirmation" name="password_confirmation" type="password" autocomplete="off" autofocus="true" required />
+          </md-field>
+          <md-button type="submit" class="md-raised mt-8 app-form__btn" :disabled="sending">Register</md-button>
         </form>
       </div>
+
       <div class="container-form sign-in">
-        <form class="app-form flex flex-col items-center justify-center h-full text-center" @submit.prevent="doNothing">
+        <form @submit.prevent="validateUser('sign-in')" novalidate ref="form" class="app-form flex flex-col items-center justify-center h-full text-center">
           <h3 class="md-title">Sign In</h3>
           <div class="container-social">
             <div class="social inline-flex justify-center items-center rounded-full border-solid border"><md-icon>dashboard</md-icon></div>
             <div class="social inline-flex justify-center items-center rounded-full border-solid border"><md-icon>home</md-icon></div>
             <div class="social inline-flex justify-center items-center rounded-full border-solid border"><md-icon>shield</md-icon></div>
           </div>
-          <span class="md-caption">or use your account.</span>
-          <md-field md-inline class="app-form__field">
-            <label class="app-form__label">Email</label>
-            <md-input v-model="email" class="app-form__control"></md-input>
+          <span class="md-caption">Sign in to start your session</span>
+
+          <md-field md-inline class="app-form__field" :class="getValidationClass('user', 'email')">
+            <label for="email" class="app-form__label">Email</label>
+            <md-input class="app-form__control" v-model="user.email" id="email" name="email" type="text" autocomplete="off" autofocus="true" required />
           </md-field>
-          <md-field md-inline class="app-form__field">
-            <label class="app-form__label">Password</label>
-            <md-input v-model="password" class="app-form__control"></md-input>
+
+          <md-field md-inline class="app-form__field" :class="getValidationClass('user', 'password')">
+            <label for="password" class="app-form__label">Password</label>
+            <md-input class="app-form__control" v-model="user.password" id="password" name="password" type="password" autocomplete="off" autofocus="false" required />
           </md-field>
-          <md-button type="submit" class="md-raised mt-8 app-form__btn">Sign In</md-button>
+
+          <md-button type="submit" class="md-raised mt-8 app-form__btn" :disabled="sending">Login</md-button>
         </form>
       </div>
 
@@ -69,19 +77,102 @@
 </template>
 
 <script>
+import { validationMixin } from 'vuelidate'
+import { sameAs, email, required, minLength } from 'vuelidate/lib/validators'
+
 export default {
   name: 'AuthWelcome',
+  mixins: [ validationMixin ],
   data () {
     return {
       showRight: false,
-      name: null,
-      email: null,
-      password: null
+      sending: false,
+      user: {
+        email: 'me@me.com',
+        password: 'me'
+      },
+      register: {
+        email: 'me@me.com',
+        password: 'me',
+        username: 'me',
+        password_confirmation: 'me'
+      }
+    }
+  },
+  validations: {
+    user: {
+      email: {
+        required,
+        email,
+        minLength: minLength(1)
+      },
+      password: {
+        required,
+        minLength: minLength(2)
+      }
+    },
+    register: {
+      email: {
+        required,
+        email,
+        minLength: minLength(1)
+      },
+      username: {
+        required,
+        minLength: minLength(2)
+      },
+      password: {
+        required,
+        minLength: minLength(2)
+      },
+      password_confirmation: {
+        required,
+        sameAsPassword: sameAs('password')
+      }
     }
   },
   methods: {
+    getValidationClass (fldRoot, fldName) {
+      const field = this.$v[fldRoot][fldName]
+      if (field) {
+        return {
+          'md-invalid': field.$invalid && field.$dirty
+        }
+      }
+    },
+    validateUser (formMode) {
+      this.$v.$touch()
+      if (!this.$v.$invalid) {
+        if (formMode === 'sign-in') {
+          this.loginUser()
+        } else {
+          this.registerUser()
+        }
+        this.sending = true
+      }
+    },
+    async registerUser () {
+      try {
+        await this.$store.dispatch('user/registerUser', this.register)
+        this.sending = false
+        this.$router.push('/')
+      } catch (error) {
+        this.$store.dispatch('setError', 'Error logging in your credentials, please try again')
+        this.sending = false
+      }
+    },
+    async loginUser () {
+      try {
+        await this.$store.dispatch('user/logInUser', this.user)
+        this.sending = false
+        this.$router.push('/')
+      } catch (error) {
+        this.$store.dispatch('setError', 'Error logging in your credentials, please try again')
+        this.sending = false
+      }
+    },
     doNothing () {
-      console.log('nothing')
+      console.log(this.$v['register']['email'])
     }
   }
 }

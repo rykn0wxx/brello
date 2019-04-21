@@ -61,12 +61,7 @@ const customRoutes = [
   {
     path: '/authentication',
     component: (resolve) => import('@/views/layouts/Authentication.vue').then(resolve),
-    name: 'LayoutsAuthentication'
-  },
-  {
-    path: '/base',
-    component: (resolve) => import('@/views/layouts/Base.vue').then(resolve),
-    name: 'LayoutsBase',
+    name: 'LayoutsAuthentication',
     redirect: '/login',
     children: [
       {
@@ -78,13 +73,13 @@ const customRoutes = [
         path: '/register',
         name: 'Register',
         component: (resolve) => import('@/views/auth/Register.vue').then(resolve)
+      },
+      {
+        path: '/welcome',
+        name: 'Welcome',
+        component: (resolve) => import('@/views/auth/Welcome.vue').then(resolve)
       }
     ]
-  },
-  {
-    path: '/welcome',
-    component: (resolve) => import('@/views/auth/Welcome.vue').then(resolve),
-    name: 'Welcome'
   }
 ]
 
@@ -110,13 +105,14 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.path === '/login' || to.path === '/register') {
+  // if (to.path === '/login' || to.path === '/register') {
+  if (to.path === '/welcome') {
     next()
   } else {
     if (store.getters['user/userLogin']) {
       next()
     } else {
-      next('/login')
+      next('/welcome')
     }
   }
 })

@@ -7,14 +7,14 @@ Rails.application.routes.draw do
       patch :move
     end
   end
-  resources :lists, :defaults => { :format => 'json' } do
-    member do
-      patch :move
-    end
-  end
   resources :boards, :defaults => { :format => 'json' } do
     member do
       patch :move
+    end
+    resources :lists, :defaults => { :format => 'json' } do
+      member do
+        patch :move
+      end
     end
   end
   

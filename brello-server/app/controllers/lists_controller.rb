@@ -5,9 +5,9 @@ class ListsController < ApplicationController
 
   # GET /lists
   def index
-    @lists = List.all
+    @lists = List.where(:board_id => params[:board_id]).order(:position => :asc)
 
-    render json: @lists
+    render json: @lists.to_json(:include => :cards, :except => [:created_at, :updated_at])
   end
 
   # GET /lists/1
@@ -43,7 +43,7 @@ class ListsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_list
-      @list = List.find(params[:id])
+      @list = List.where(:board_id => params[:board_id]).find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

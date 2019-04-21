@@ -5,9 +5,8 @@ class BoardsController < ApplicationController
 
   # GET /boards
   def index
-    @boards = Board.all
-
-    render json: @boards
+    @boards = current_user.boards.order(:position => :asc)
+    render json: @boards.to_json(:except => [:created_at, :updated_at])
   end
 
   # GET /boards/1
@@ -20,7 +19,7 @@ class BoardsController < ApplicationController
     @board = Board.new(board_params)
 
     if @board.save
-      render json: @board, status: :created, location: @board
+      render json: @board.to_json(:except => [:created_at, :updated_at]), status: :created, location: @board
     else
       render json: @board.errors, status: :unprocessable_entity
     end

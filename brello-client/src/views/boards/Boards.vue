@@ -1,13 +1,15 @@
 <template>
   <div class="md-layout md-gutter">
     <div class="md-layout-item md-size-25 md-medium-size-50 md-small-size-50 md-xsmall-size-100" v-for="(board, index) in boards" v-bind:key="index">
-      <md-card md-with-hover class="board-card">
-        <md-card-header>
-          <md-card-header-text>
-            <div class="md-body-2">{{ board.name }}</div>
-          </md-card-header-text>
-        </md-card-header>
-      </md-card>
+      <router-link v-bind:to="`/boards/${board.id}`" class="no-underline hover:no-underline">
+        <md-card md-with-hover class="board-card">
+          <md-card-header>
+            <md-card-header-text>
+              <div class="md-body-2">{{ board.name }}</div>
+            </md-card-header-text>
+          </md-card-header>
+        </md-card>
+      </router-link>
     </div>
     <div class="md-layout-item md-size-25 md-medium-size-50 md-small-size-50 md-xsmall-size-100" @click="showForm = true">
       <md-card md-with-hover class="board-card board-card__add">
@@ -34,16 +36,15 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import { validationMixin } from 'vuelidate'
 import { required } from 'vuelidate/lib/validators'
-import Services from '@/services'
 
 export default {
   name: 'BoardsBoards',
   mixins: [ validationMixin ],
   data () {
     return {
-      boards: null,
       showForm: false,
       sending: false,
       board: {
@@ -58,7 +59,22 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters({
+      boards: 'boards/allBoards'
+    })
+  },
+  created () {
+    this.getAllBoards()
+  },
   methods: {
+    ...mapActions({
+      getAllBoards: 'boards/getAllBoards',
+      createBoard: 'boards/createBoard'
+    }),
+    gotoBoard () {
+
+    },
     getValidationClass (fldName) {
       const field = this.$v.board[fldName]
       if (field) {
@@ -67,31 +83,21 @@ export default {
         }
       }
     },
-    async createBoard () {
-      const allBoards = await Services.Api.secured().post('/boards', {
-        board: {
-          ...this.board,
-          user_id: this.$store.getters['user/getUser'].id
-        }
-      })
-      console.log(allBoards)
+    newBoard () {
+      const payload = {
+        ...this.board,
+        user_id: this.$store.getters['user/getUser'].id
+      }
+      this.createBoard(payload)
       this.showForm = false
       this.sending = false
     },
     validateForm () {
       this.$v.$touch()
       if (!this.$v.$invalid) {
-        this.createBoard()
+        this.newBoard()
         this.sending = true
       }
-    }
-  },
-  async created () {
-    try {
-      const allBoards = await Services.Api.secured().get('/boards')
-      this.boards = allBoards.data
-    } catch (error) {
-      this.$store.dispatch('setError', error.response.data)
     }
   }
 }

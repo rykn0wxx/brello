@@ -90,6 +90,13 @@ input {
   font-size: 100%;
 }
 
+a:not(.md-button) {
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 @each $color, $value in $colors {
   .text-#{$color} {
     color: $value;
