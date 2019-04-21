@@ -1,5 +1,11 @@
 <template>
-  <draggable class="board-tile flex flex-wrap -mx-2" v-model="lists" group="lists" @end="listMoved" @start="drag = true">
+  <draggable
+    class="board-tile flex flex-wrap -mx-2"
+    :group="{ name: 'lists', put: false }"
+    v-model="lists"
+    ghost-class="board-tile__ghost"
+    @end="listMoved"
+    @start="listStart">
     <trello-board-card v-for="(list, index) in lists" :key="index" :list="list" />
   </draggable>
 </template>
@@ -27,13 +33,13 @@ export default {
         await Services.Api.secured().patch(`/boards/${this.$route.params.id}/lists/${listId.id}/move`, listData)
       }
       this.drag = false
+    },
+    listStart (evt) {
+      this.drag = true
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.flipping-move {
-  transition: transform 0.5s;
-}
 </style>
